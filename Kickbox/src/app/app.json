@@ -8,7 +8,10 @@
     "crm": {
       "cards": [
         {
-          "file": "extensions/card.json"
+          "file": "extensions/card-side.json"
+        },
+        {
+          "file": "extensions/card-tab.json"
         }
       ]
     }

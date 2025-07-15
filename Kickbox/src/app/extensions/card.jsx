@@ -22,6 +22,18 @@ hubspot.extend(({ context, runServerlessFunction, actions, crm }) => (
   />
 ));
 
+// Helper function to map boolean-like property values to 'Yes', 'No', or 'N/A'
+const mapBooleanPropertyForDisplay = (value) => {
+  if (value === 'true' || value === true) {
+    return 'Yes';
+  }
+  if (value === 'false' || value === false) {
+    return 'No';
+  }
+  return 'N/A'; // Show 'N/A' if the value is not explicitly 'true' or 'false' (e.g., blank, null, undefined)
+  // To leave it blank instead of 'N/A', you could return null or an empty string: return '';
+};
+
 const EmailVerificationCard = ({ context, runServerlessFunction, actions, crm }) => {
   const [contactEmail, setContactEmail] = useState('Loading contact email...');
   const [verificationResult, setVerificationResult] = useState(null);
@@ -90,13 +102,13 @@ const EmailVerificationCard = ({ context, runServerlessFunction, actions, crm })
           setVerificationResult({
             result: properties.kickbox_result || '',
             reason: properties.kickbox_reason || 'N/A',
-            disposable: properties.kickbox_disposable === 'true',
-            accept_all: properties.kickbox_accept_all === 'true',
-            role: properties.kickbox_role === 'true',
-            free: properties.kickbox_free === 'true',
+            disposable: mapBooleanPropertyForDisplay(properties.kickbox_disposable),
+            accept_all: mapBooleanPropertyForDisplay(properties.kickbox_accept_all),
+            role: mapBooleanPropertyForDisplay(properties.kickbox_role),
+            free: mapBooleanPropertyForDisplay(properties.kickbox_free),
             sendex: parseFloat(properties.kickbox_sendex) || 0,
             did_you_mean: properties.kickbox_did_you_mean || null,
-            success: properties.kickbox_success === 'true',
+            success: mapBooleanPropertyForDisplay(properties.kickbox_success),
             email_normalized: properties.kickbox_email_normalized || null,
             verification_date: verificationDateValue || null,
             verified_email: properties.kickbox_email_normalized || null
@@ -156,13 +168,13 @@ const EmailVerificationCard = ({ context, runServerlessFunction, actions, crm })
         setVerificationResult({
           result: resultData.kickbox_result || '',
           reason: resultData.kickbox_reason || 'N/A',
-          disposable: typeof resultData.kickbox_disposable === 'boolean' ? resultData.kickbox_disposable : String(resultData.kickbox_disposable).toLowerCase() === 'true',
-          accept_all: typeof resultData.kickbox_accept_all === 'boolean' ? resultData.kickbox_accept_all : String(resultData.kickbox_accept_all).toLowerCase() === 'true',
-          role: typeof resultData.kickbox_role === 'boolean' ? resultData.kickbox_role : String(resultData.kickbox_role).toLowerCase() === 'true',
-          free: typeof resultData.kickbox_free === 'boolean' ? resultData.kickbox_free : String(resultData.kickbox_free).toLowerCase() === 'true',
+          disposable: mapBooleanPropertyForDisplay(resultData.kickbox_disposable),
+          accept_all: mapBooleanPropertyForDisplay(resultData.kickbox_accept_all),
+          role: mapBooleanPropertyForDisplay(resultData.kickbox_role),
+          free: mapBooleanPropertyForDisplay(resultData.kickbox_free),
           sendex: typeof resultData.kickbox_sendex === 'number' ? resultData.kickbox_sendex : parseFloat(resultData.kickbox_sendex) || 0,
           did_you_mean: resultData.kickbox_did_you_mean || null,
-          success: typeof resultData.kickbox_success === 'boolean' ? resultData.kickbox_success : String(resultData.kickbox_success).toLowerCase() === 'true',
+          success: mapBooleanPropertyForDisplay(resultData.kickbox_success),
           email_normalized: resultData.kickbox_email_normalized || null,
           verification_date: resultData.kickbox_verification_date || null,
           verified_email: resultData.kickbox_email_normalized || null
@@ -298,20 +310,20 @@ const EmailVerificationCard = ({ context, runServerlessFunction, actions, crm })
             <Flex direction="row" gap="medium" wrap="wrap" justify="space-between">
                 <Box grow={1} basis="48%">
                 {verificationResult.success !== undefined && (
-                   <Text><Text format={{ fontWeight: "bold" }}>Success:</Text> {verificationResult.success ? 'Yes' : 'No'}</Text>
+                   <Text><Text format={{ fontWeight: "bold" }}>Success:</Text> {verificationResult.success}</Text>
                 )}
                 </Box>
                 <Box grow={1} basis="48%">
-                    <Text><Text format={{ fontWeight: "bold" }}>Disposable:</Text> {verificationResult.disposable ? 'Yes' : 'No'}</Text>
+                    <Text><Text format={{ fontWeight: "bold" }}>Disposable:</Text> {verificationResult.disposable}</Text>
                 </Box>
                 <Box grow={1} basis="48%">
-                    <Text><Text format={{ fontWeight: "bold" }}>Accept All:</Text> {verificationResult.accept_all ? 'Yes' : 'No'}</Text>
+                    <Text><Text format={{ fontWeight: "bold" }}>Accept All:</Text> {verificationResult.accept_all}</Text>
                 </Box>
                 <Box grow={1} basis="48%">
-                    <Text><Text format={{ fontWeight: "bold" }}>Role Email:</Text> {verificationResult.role ? 'Yes' : 'No'}</Text>
+                    <Text><Text format={{ fontWeight: "bold" }}>Role Email:</Text> {verificationResult.role}</Text>
                 </Box>
                 <Box grow={1} basis="48%">
-                    <Text><Text format={{ fontWeight: "bold" }}>Free Email Provider:</Text> {verificationResult.free ? 'Yes' : 'No'}</Text>
+                    <Text><Text format={{ fontWeight: "bold" }}>Free Email Provider:</Text> {verificationResult.free}</Text>
                 </Box>
             </Flex>
 
