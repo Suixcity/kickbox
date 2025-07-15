@@ -1,0 +1,12 @@
+{
+  "appFunctions": {
+    "verify-email": {
+      "file": "verify-email.js",
+      "secrets": ["kickbox","testkickbox", "private_app"]
+    },
+    "get-contact-data": {
+      "file": "get-contact-data.js",
+      "secrets": ["private_app"]
+    }
+  }
+}

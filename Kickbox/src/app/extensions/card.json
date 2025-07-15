@@ -1,0 +1,20 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Email Verification Card",
+    "description": "Email verification for contacts using Kickbox API.",
+    "uid": "email-verification-card",
+    "location": "crm.record.sidebar",
+    "module": {
+      "file": "card.jsx"
+    },
+    "objectTypes": [{ "name": "contact" }],
+    "visibility": {
+      "recordTypes": {
+        "contact": {
+          "all": true
+        }
+      }
+    }
+  }
+}
