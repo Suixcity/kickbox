@@ -1,9 +1,9 @@
 {
   "type": "crm-card",
   "data": {
-    "title": "Kickbox Card - Tab",
+    "title": "Kickbox",
     "description": "Kickbox for contacts using Kickbox API.",
-    "uid": "Kickbox-card",
+    "uid": "Kickbox-card-tab",
     "location": "crm.record.tab",
     "module": {
       "file": "card.jsx"

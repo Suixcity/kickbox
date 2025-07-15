@@ -7,6 +7,10 @@
     "get-contact-data": {
       "file": "get-contact-data.js",
       "secrets": ["private_app"]
+    },
+    "workflow-verify-email": {
+      "file": "workflow-verify-email.js",
+      "secrets": ["kickbox", "private_app"]
     }
   }
 }
