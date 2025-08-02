@@ -2,7 +2,7 @@
   "name": "Kickbox-Verification",
   "description": "This is an example private app that shows a custom card on the Contact record tab built with React-based frontend. This card demonstrates a simple handshake with HubSpot's serverless backend.",
   "uid": "kickbox",
-  "scopes": ["crm.objects.contacts.read", "crm.objects.contacts.write"],
+  "scopes": ["actions", "crm.objects.contacts.read", "crm.objects.contacts.write"],
   "public": false,
   "extensions": {
     "crm": {
@@ -14,19 +14,50 @@
           "file": "extensions/card-tab.json"
         }
       ],
-    "workflowExtensions": [
+      "workflowExtensions": [
         {
-          "url": "app.functions/workflow-verify-email.js",
-          "uid": "kickbox-test-action",
-          "label": "Kickbox: Test Action (Temporary)",
-          "objectTypes": ["CONTACT"],
-          "published": true
+          "actionUrl": "app.functions/workflow-verify-email.js",
+          "functionName": "main",
+          "published": "true",
+          "uid": "kickbox-verify-email-action",
+          "label": "Kickbox: Verify Email",
+          "inputData": {
+            "objectTypes": "CONTACT"
+          },
+          "inputFields": [
+            {
+              "name": "contact_id",
+              "label": "Contact ID",
+              "type": "STRING",
+              "parameterReference": "contact.id"
+            },
+            {
+              "name": "contact_email",
+              "label": "Contact Email",
+              "type": "STRING",
+              "parameterReference": "contact.email"
+            }
+          ],
+          "outputFields": [
+            {
+              "name": "kickbox_result",
+              "label": "Kickbox Result",
+              "type": "STRING"
+            },
+            {
+              "name": "kickbox_reason",
+              "label": "Kickbox Reason",
+              "type": "STRING"
+            },
+            {
+              "name": "kickbox_success",
+              "label": "Kickbox Success",
+              "type": "BOOLEAN"
+            }
+          ]
         }
       ]
     }
   },
-  "functions": "./src/app/app.functions",
-  "webhooks": {
-    "file": "./webhooks/webhooks.json"
-  }
+  "functions": "./src/app/app.functions"
 }

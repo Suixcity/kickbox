@@ -1,7 +1,7 @@
 {
   "type": "crm-card",
   "data": {
-    "title": "Kickbox Card",
+    "title": "Kickbox Card Side",
     "description": "Email verification for contacts using Kickbox API.",
     "uid": "Kickbox-card-side",
     "location": "crm.record.sidebar",

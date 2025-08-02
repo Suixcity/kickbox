@@ -1,0 +1,54 @@
+{
+  "functions": [
+    {
+      "functionType": "PRE_FETCH",
+      "functionSource": "exports.main = async (event, callback) => { callback({ outputFields: { contactId: event.object.objectId, contactEmail: event.object.properties.email }}); };"
+    },
+    {
+      "functionType": "POST_FETCH",
+      "functionSource": "const axios = require('axios'); // Assuming axios is installed in your app.functions\nconst KICKBOX_API_KEY = process.env.kickbox;\nconst contactEmail = event.outputFields.contactEmail;\nconst kickboxResponse = await axios.get(`https://api.kickbox.com/v2/verify?email=${contactEmail}&apikey=${KICKBOX_API_KEY}`);\ncallback(kickboxResponse.data);"
+    }
+  ],
+  "actionUrl": "https://your-custom-action-url.com",
+  "archived": false,
+  "actionDescription": "Verifies an email address using the Kickbox API.",
+  "actionDescriptionIdentifier": "kickbox-verify-email-action",
+  "actionName": "Kickbox: Verify Email",
+  "appId": 1234567,
+  "objectTypes": [
+    "CONTACT"
+  ],
+  "inputFields": [
+    {
+      "name": "contact_id",
+      "type": "STRING",
+      "label": "Contact ID",
+      "required": true,
+      "parameterReference": "contact.id"
+    },
+    {
+      "name": "email",
+      "type": "STRING",
+      "label": "Email",
+      "required": true,
+      "parameterReference": "contact.email"
+    }
+  ],
+  "outputFields": [
+    {
+      "name": "kickbox_result",
+      "type": "STRING",
+      "label": "Kickbox Result"
+    },
+    {
+      "name": "kickbox_reason",
+      "type": "STRING",
+      "label": "Kickbox Reason"
+    },
+    {
+      "name": "kickbox_success",
+      "type": "BOOLEAN",
+      "label": "Kickbox Success"
+    }
+  ]
+}

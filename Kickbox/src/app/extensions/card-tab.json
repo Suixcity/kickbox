@@ -1,7 +1,7 @@
 {
   "type": "crm-card",
   "data": {
-    "title": "Kickbox",
+    "title": "Kickbox Card Tab",
     "description": "Kickbox for contacts using Kickbox API.",
     "uid": "Kickbox-card-tab",
     "location": "crm.record.tab",
