@@ -2,7 +2,7 @@
   "appFunctions": {
     "verify-email": {
       "file": "verify-email.js",
-      "secrets": ["kickbox","testkickbox", "private_app"]
+      "secrets": ["kickbox", "private_app"]
     },
     "get-contact-data": {
       "file": "get-contact-data.js",
