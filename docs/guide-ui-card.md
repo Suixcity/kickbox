@@ -1,6 +1,6 @@
 # UI Card Implementation Guide
 
-This guide walks through deploying the Kickbox CRM UI cards to a HubSpot contact record. Once installed, a **"Verify Email with Kickbox"** button will appear on contact records, allowing anyone to verify an email address in real time without leaving HubSpot.
+This guide walks through deploying the Kickbox CRM UI cards to a HubSpot contact record. Once installed, a **"Verify Email with Kickbox"** button will appear on contact records. Clicking it verifies the email in real time via the Kickbox API and writes the full set of verification results directly back to the contact's properties — no context switching, no manual data entry required.
 
 **Video walkthrough:** [Kickbox Tab Card Instructions — Loom (7 August 2025)](https://www.loom.com/share/377a168efc5b43c89868f1969c0f428e?sid=a01dbbd2-1a9e-49f4-89d1-e394b3c14f50)
 
@@ -52,7 +52,7 @@ hs account auth
 
 ## Step 4 — Add Secrets
 
-Add your Kickbox API key and a placeholder for the HubSpot private app token. Both secrets must be named exactly as shown:
+Add your Kickbox API key and a placeholder for the HubSpot legacy app token. Both secrets must be named exactly as shown:
 
 ```bash
 hs secret add kickbox
@@ -87,13 +87,13 @@ You should see the project upload and deploy successfully.
 
 ---
 
-## Step 6 — Update the Private App Secret
+## Step 6 — Update the Legacy App Secret
 
-After uploading, HubSpot automatically creates a private app called **Kickbox-Verification** in your HubSpot account.
+After uploading, HubSpot automatically creates a legacy app called **kickbox-verification** in your HubSpot account.
 
-1. In your HubSpot account, go to **Settings → Integrations → Private Apps**
-2. Click on **Kickbox-Verification** and then click **View access token**
-3. Copy the token value
+1. In your HubSpot account, go to **Development → Legacy Apps**
+2. Click on **kickbox-verification**, then open the **Auth** tab
+3. Copy the **Access Token** value
 4. Back in your terminal, update the secret with the real value:
 
 ```bash
@@ -261,6 +261,8 @@ The cards write verification data to custom contact properties. These need to be
 ```
 
 7. Click **Send** — you should receive a `201 Created` response with status `COMPLETE`
+
+> **Prefer the command line?** You can skip Postman entirely and make this same call with `curl`. Use `curl -X POST` against the same endpoint, pass your legacy app access token as a `Bearer` Authorization header, set `Content-Type: application/json`, and include the JSON body above.
 
 ---
 

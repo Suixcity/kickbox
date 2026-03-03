@@ -6,15 +6,26 @@ Complete these steps before following either implementation guide. Both the UI C
 
 ## 1. HubSpot Account
 
-You can deploy this integration to any HubSpot account where you have admin access:
+### HubSpot Tier Requirements
+
+> **Important:** Both components of this integration rely on HubSpot features that are gated behind paid tiers in production:
+>
+> | Feature | Required tier |
+> |---|---|
+> | CRM UI Extensions (the card) | Any Hub **Enterprise** |
+> | Custom coded workflow actions | **Operations Hub Professional** or Enterprise |
+>
+> **The free HubSpot CRM does not support either feature in production.** If you are evaluating or testing this integration, a free developer test account (see below) provides full access to both features at no cost.
+
+### Choose Your Account
 
 | Account type | When to use it |
 |---|---|
-| **Production account** | You're ready to go live and have admin access |
-| **Sandbox account** | Your plan includes a sandbox — safest option for testing before production |
-| **Free developer test account** | You want a disposable environment to experiment with first |
+| **Production account** (Enterprise / Ops Hub Pro+) | You're ready to go live and your account meets the tier requirements above |
+| **Sandbox account** (Enterprise / Ops Hub Pro+) | Your plan includes a sandbox — safest option for testing before production |
+| **Free developer test account** | You want to evaluate or demo the integration without a paid account |
 
-A developer test account is recommended if you're setting this up for the first time or don't want to touch a live account. To create one:
+A developer test account is recommended if you're setting this up for the first time or don't have an account that meets the tier requirements above. To create one:
 
 1. Sign up at [https://developers.hubspot.com/get-started](https://developers.hubspot.com/get-started)
 2. Select **"Create app developer account"** and follow the prompts until you reach the **Developer Home** screen
@@ -66,9 +77,9 @@ You need a [Kickbox account](https://kickbox.com/) with an API key.
 
 ---
 
-## 6. Postman (UI Card only)
+## 6. Postman or curl (UI Card only)
 
-The UI Card setup requires a batch API call to create custom HubSpot properties. [Postman](https://www.postman.com/) is used for this in the guide — the web version works fine, but the desktop app is recommended.
+The UI Card setup requires a batch API call to create custom HubSpot properties. The guide uses [Postman](https://www.postman.com/) — the web version works fine, but the desktop app is recommended. If you're comfortable on the command line, `curl` works equally well for the same call.
 
 > This is **not required** for the Workflow Action guide.
 
